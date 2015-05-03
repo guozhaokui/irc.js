@@ -1,2 +1,68 @@
 
+https://tools.ietf.org/html/rfc2812
+
 客户端根据nkname来唯一确定，最大长度为9.
+
+Operators
+  是一种特殊的user
+
+与nickname和channename相关的一个注意事项
+ 规定{}|^ 是 []\~的小写
+message
+  一般只有包含command的消息才需要返回值，但是不建议一直等待返回值。
+消息格式
+  Prefix(optional)0x20command0x20command_parameters
+    1                    2           3
+  3限制15以内
+  prefix:
+    如果有prefix则以':'开头。注意后面不允许跟空格。prefix用来表示消息的实际来源，如果没有，就表示消息就是来自于连接的服务器。
+    客户端发消息的时候还是不要加prefix了吧。
+  command
+    只能是一个有效的irc命令或者一个三位的十进制数字（字符串）
+  整个message以CR_LF结束，其长度不能超过512，去掉CR LF实际长度不能超过510
+
+命令解析
+  首先用CRLF拆分消息流。对于空消息，直接忽略。
+
+具体BNF格式
+    message    =  [ ":" prefix SPACE ] command [ params ] crlf
+    prefix     =  servername / ( nickname [ [ "!" user ] "@" host ] )
+    command    =  1*letter / 3digit
+    params     =  *14( SPACE middle ) [ SPACE ":" trailing ]
+               =/ 14( SPACE middle ) [ SPACE [ ":" ] trailing ]
+
+    nospcrlfcl =  %x01-09 / %x0B-0C / %x0E-1F / %x21-39 / %x3B-FF
+                    ; any octet except NUL, CR, LF, " " and ":"
+    middle     =  nospcrlfcl *( ":" / nospcrlfcl )
+    trailing   =  *( ":" / " " / nospcrlfcl )
+
+    SPACE      =  %x20        ; space character
+    crlf       =  %x0D %x0A   ; "carriage return" "linefeed"
+
+连接注册
+  由3个命令组成
+  PASS <param>
+    必须在Nick/User之前
+    返回值为
+      ERR_NEEDMOREPARAMS
+      ERR_ALREADYREGISTRED
+  NICK <nickname>
+    设置 或者改变nickname
+    返回值
+      ERR_NONICKNAMEGIVEN             ERR_ERRONEUSNICKNAME
+      ERR_NICKNAMEINUSE               ERR_NICKCOLLISION
+      ERR_UNAVAILRESOURCE             ERR_RESTRICTED
+    例如
+    :WiZ!jto@tolsun.oulu.fi NICK Kilroy
+      表示服务器通知，Wiz改名为Kilroy
+  USER <user> <mode> <unused> <realname>
+    mode是定义状态，例如忙碌、隐身啦之类的。
+    返回值
+    ERR_NEEDMOREPARAMS              ERR_ALREADYREGISTRED
+
+频道相关
+  JOIN
+  NAMES
+  LIST
+发送消息
+  
