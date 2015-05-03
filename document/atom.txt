@@ -1,4 +1,18 @@
 
 git版本控制的整合
   本身好像集成了git，但是不知道怎么使用
+    现在通过颜色来区分git状态，例如绿色表示还没有被管理。
+    一旦提交了，就变成普通的灰色了。
+    不管的是深灰色。
+    被管理的修改了就变成金黄（橙）色。
+
   可以安装package，例如 git-plus
+    还不太清楚怎么用。只知道在菜单的Package中有对应的项了
+    可能是需要linux？
+
+怎么运行Node.js的程序
+    atom在atom shell之上构建。atom shell是基于chromium和node.js写的
+    atom shell在browser端和renderer端都嵌入了Node.js。 在初始化完v8引擎后，载入了node的运行环境，然后进入事件循环。
+    安装一个atom runner
+      安装完了以后，通过alt+r来执行。会打开一个新的窗口，显示执行结果。
+      需要先获得焦点。
