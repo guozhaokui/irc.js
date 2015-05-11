@@ -65,4 +65,17 @@ message
   NAMES
   LIST
 发送消息
-  
+
+
+测试：
+  发送 PASS 12341234\r\n
+  服务器没有任何回应
+    因为并没有错，只是没完。
+    如果只发送 PASS \r\n
+    则返回
+    :irc.androiddebug.net 461 * PASS :Syntax error
+  如果NICK太长
+    :irc.androiddebug.net 432 * guozhaokui :Nickname too long, max. 9 characters
+  修改后
+    ERROR :Access denied: Bad password?
+    
