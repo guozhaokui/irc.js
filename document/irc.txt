@@ -78,4 +78,31 @@ message
     :irc.androiddebug.net 432 * guozhaokui :Nickname too long, max. 9 characters
   修改后
     ERROR :Access denied: Bad password?
-    
+  如果不设置PASS，则能连上
+    //client.write('PASS 12341234\r\n');
+    client.write('NICK guozk\r\n');
+    client.write('USER guozhaokui 8 * : my real name is js chat client\r\n');
+
+    CONNECTED TO: 192.168.0.106:6667
+    :irc.androiddebug.net 001 guozk :Welcome to the Internet Relay Network guozk!~guozhaokui@10.10.20.31
+
+    :irc.androiddebug.net 002 guozk :Your host is irc.androiddebug.net, running version ngircd-22.1 (x86_64/unknown/linux-gnu)
+    :irc.androiddebug.net 003 guozk :This server has been started Tue Apr 28 2015 at 21:35:56 (CST)
+    :irc.androiddebug.net 004 guozk irc.androiddebug.net ngircd-22.1 abBcCFioqrRswx abehiIklmMnoOPqQrRstvVz
+    :irc.androiddebug.net 005 guozk RFC2812 IRCD=ngIRCd CHARSET=UTF-8 CASEMAPPING=ascii PREFIX=(qaohv)~&@%+ CHANTYPES=#&+ CHANMODES=beI,k,l,imMnOPQRstVz CHANLIMIT=#&+:10 :are supported on this server
+    :irc.androiddebug.net 005 guozk CHANNELLEN=50 NICKLEN=9 TOPICLEN=490 AWAYLEN=127 KICKLEN=400 MODES=5 MAXLIST=beI:50 EXCEPTS=e INVEX=I PENALTY :are supported on this server
+    :irc.androiddebug.net 251 guozk :There are 1 users and 0 services on 1 servers
+    :irc.androiddebug.net 254 guozk 2 :channels formed
+    :irc.androiddebug.net 255 guozk :I have 1 users, 0 services and 0 servers
+    :irc.androiddebug.net 265 guozk 1 1 :Current local users: 1, Max: 1
+    :irc.androiddebug.net 266 guozk 1 1 :Current global users: 1, Max: 1
+    :irc.androiddebug.net 250 guozk :Highest connection count: 2 (53 connections received)
+    :irc.androiddebug.net 422 guozk :MOTD file is missing
+  在此期间如果再次连接设置NICK和USER则
+    :irc.androiddebug.net 433 * guozk :Nickname already in use
+  过了一段时间之后
+  PING :irc.androiddebug.net
+
+  :irc.androiddebug.net NOTICE guozk :Connection statistics: client 0.1 kb, server 1.3 kb.
+  ERROR :Ping timeout: 20 seconds
+  超时断开，这时候，相同NICK就可以再次登录了。

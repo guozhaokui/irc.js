@@ -10,8 +10,7 @@ var serverPort = 6667;
 client.connect(serverPort, serverIP, function() {
     log('CONNECTED TO: ' + serverIP + ':' + serverPort);
     // 建立连接后立即向服务器发送数据，服务器将收到这些数据
-    //client.write('<policy-file-request/>');
-    client.write('PASS 12341234\r\n');
+    //client.write('PASS 12341234\r\n');
     client.write('NICK guozk\r\n');
     client.write('USER guozhaokui 8 * : my real name is js chat client\r\n');
 });
