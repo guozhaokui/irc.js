@@ -59,6 +59,7 @@ setTimeout(function(){
   client.write('LIST\r\n');
 },3000);
 
+//创建频道
 
 //修改昵称
 

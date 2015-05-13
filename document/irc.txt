@@ -108,6 +108,8 @@ message
   :kdk!~guozhaokui@10.10.20.151 JOIN :#Blade2
 
 创建频道
+  JOIN #notexist
+    加入不存在的频道就会创建。
 
 离开频道
   PART #Blade2\r\n
@@ -135,11 +137,19 @@ PING
     PRIVMSG guozk :hi
     PRIVMSG :hi
     PRIVMSG #Blade2 :wtf
-    
+
   其他人的消息：
   :kdk!~guozhaokui@10.10.20.151 PRIVMSG #Blade2 :haha
   :kdk!~guozhaokui@10.10.20.151 PRIVMSG #Blade2 :尼玛
       不过不知道编码怎么回事，这个应该是utf8编码的
+
+  如果两个人在不同的房间，是否可以发送消息
+    可以
+    :kdk!~guozhaokui@10.10.20.151 PRIVMSG guozk2 :kkk
+    这是从另外一个房间的用户发来的消息。
+    
+NOTICE
+  不允许返回自动回复
 
 测试：
   发送 PASS 12341234\r\n
