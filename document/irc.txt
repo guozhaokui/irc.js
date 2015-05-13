@@ -65,7 +65,81 @@ message
   NAMES
   LIST
 发送消息
+  在发送消息之前应该先进入频道
 
+普通命令
+  就是上面的 message 的定义
+  其中的commnad
+    000 - 099
+      仅用于c-s的连接，不能在s-s间
+      例如 001 是欢迎， nick!user@host, host是客户端地址
+      004    RPL_MYINFO
+                    "<servername> <version> <available user modes>
+                     <available channel modes>"
+      一旦注册成功，服务器就会发送001到004给客户端
+      005
+        标准是建议连接其他服务器。
+        但是ngirc是表示本服务器支持的各种信息
+    200 - 399
+      254    RPL_LUSERCHANNELS
+       "<integer> :channels formed"
+
+查询channel
+  .直接调用LIST\r\n
+  :irc.androiddebug.net 322 guozk2 &SERVER 0 :Server Messages
+  :irc.androiddebug.net 322 guozk2 #Blade2 0 :猎刃调试
+  :irc.androiddebug.net 323 guozk2 :End of LIST
+  不知道为什么 visible对应的是0
+
+加入频道
+  JOIN #Blade2\r\n
+  :guozk2!~guozhaokui@10.10.20.31 JOIN :#Blade2
+    服务器返回的JOIN命令，作为加入成功的确认。
+  :irc.androiddebug.net 332 guozk2 #Blade2 :猎刃调试
+    channel topic
+  :irc.androiddebug.net 333 guozk2 #Blade2 -Server- 1430228156
+  :irc.androiddebug.net 353 guozk2 = #Blade2 :guozk2
+    加入当前频道的用户列表。必须包含自己。
+  :irc.androiddebug.net 366 guozk2 #Blade2 :End of NAMES list
+  一旦加入频道以后，客户端就会接收到所有的影响这个频道的命令，例如加入退出修改状态等。
+  客户端也需要处理这些消息，以保证状态的同步
+
+  其他用户加入
+  :kdk!~guozhaokui@10.10.20.151 JOIN :#Blade2
+
+创建频道
+
+离开频道
+  PART #Blade2\r\n
+  其他用户离开
+  :kdk!~guozhaokui@10.10.20.151 PART #Blade2 :离开
+    离开 是缺省消息，如果修改了的话，可能是下面的
+  :kdk!~guozhaokui@10.10.20.151 PART #Blade2 :bye
+
+退出
+  QUIT :msg
+    离开
+    这个其他人接收不到
+    如果是在频道中直接quit则同频道的人会收到消息
+    :kdk!~guozhaokui@10.10.20.151 QUIT :"test"
+
+PING
+  例如  PING :server.net
+    表示从服务器 server.net 发送的PING
+    这时候的回应应该是
+    PONG server.net
+
+发送消息
+  PRIVMSG msgtarget msg
+    例如
+    PRIVMSG guozk :hi
+    PRIVMSG :hi
+    PRIVMSG #Blade2 :wtf
+    
+  其他人的消息：
+  :kdk!~guozhaokui@10.10.20.151 PRIVMSG #Blade2 :haha
+  :kdk!~guozhaokui@10.10.20.151 PRIVMSG #Blade2 :尼玛
+      不过不知道编码怎么回事，这个应该是utf8编码的
 
 测试：
   发送 PASS 12341234\r\n
