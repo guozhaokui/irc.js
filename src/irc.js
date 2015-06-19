@@ -69,8 +69,20 @@ setTimeout(function(){
 },6000)
 
 //收发消息
+var ii=0;
 setInterval(function(){
-  client.write('PRIVMSG #Blade2 :hi o o\r\n')
-},2000,8000);
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n');
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  client.write('PRIVMSG #Blade2 :hi o '+(ii++)+'\r\n')
+  console.log('num='+ii)
+
+},100,8000);
 
 //发送文件
